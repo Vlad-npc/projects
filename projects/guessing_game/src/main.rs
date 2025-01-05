@@ -1,4 +1,5 @@
 use std::io; // io library that comes from the standard library. input/output library
+use std::cmp::Ordering; // from standard lib
 use rand::Rng; // from the crate rand with the Rng trait
 fn main() {
     println!("Guess the number!"); // println! macro to print a string to the screen.
@@ -16,5 +17,16 @@ fn main() {
         .read_line(&mut guess)
         .expect("Failed to read line");
 
+    let guess: u32 = guess
+        .trim()
+        .parse()
+        .expect("Please type a number!");
+
     println!("You guessed: {guess}");
+
+    match guess.cmp(&secret_number) { //cant compare string with integer
+        Ordering:: Less => println!("Too small!"),
+        Ordering:: Greater => println!("Too big!"),
+        Ordering::Equal => println!("You win!"),
+    }
 }
