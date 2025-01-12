@@ -13,8 +13,10 @@ fn main() {
             .read_line(&mut n)
             .expect("Failed to read line");
 
-        let n : u128 = n.trim().parse().expect("REASON");
-
+        let n : u128 = match n.trim().parse() { //error handling, ignores non number inputs and goes back to the start of the loop
+            Ok(num) => num,
+            Err(_) => continue,
+        };
         
         if n < 1 {
             println!("Invalid input.");
